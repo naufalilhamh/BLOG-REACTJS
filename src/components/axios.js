@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
+import moment from "moment";
 import axios from "axios";
 
 function App() {
@@ -23,6 +25,7 @@ function App() {
     console.log(id_buku);
     console.log(id_user);
   }
+  // let tanggalformat = moment(.format("YYYY-MM-DD"));
 
   const renderTable = () => {
     return data.data.map(books => {
@@ -31,7 +34,7 @@ function App() {
           <td>{books.id}</td>
           <td>{books.title}</td>
           <td>{books.author}</td>
-          <td>{books.published_date}</td>
+          <td> {moment(books.published_date).format("DD - MMMM - YYYY")}</td>
           <td>{books.page}</td>
           <td>{books.language}</td>
           <td>{books.publisher_id}</td>
