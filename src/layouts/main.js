@@ -8,8 +8,6 @@ const Main = props => {
       <Navigation />
       <Container fluid={true} className="mt-2">
         <Col>{props.children}</Col>
-
-        <Footer />
       </Container>
     </>
   );

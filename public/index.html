@@ -8,6 +8,21 @@
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
       crossorigin="anonymous"
     />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+
+    <!--Fontawesome CDN-->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous"
+    />
     <link
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       rel="stylesheet"
@@ -85,11 +100,44 @@
 </html>
 <script>
   $(document).ready(function() {
+    var text_max = 10;
+    $("#textarea_feedback").html(text_max + " Sisa Huruf/Char");
+
+    $("#textarea").keyup(function() {
+      var text_length = $("#textarea").val().length;
+      var text_remaining = text_max - text_length;
+
+      $("#textarea_feedback").html(text_remaining + " Sisa Huruf/Char");
+    });
+    if (text_length >= text_max) {
+      $("#btnsubmit").addClass("disabled");
+    }
+  });
+</script>
+<script>
+  $(document).ready(function() {
     $(".search").on("keyup", function() {
       var searchTerm = $(this)
         .val()
         .toLowerCase();
       $("#tabelbor tbody tr").each(function() {
+        var lineStr = $(this)
+          .text()
+          .toLowerCase();
+        if (lineStr.indexOf(searchTerm) === -1) {
+          $(this).hide();
+        } else {
+          $(this).show();
+        }
+      });
+    });
+  });
+  $(document).ready(function() {
+    $(".search").on("keyup", function() {
+      var searchTerm = $(this)
+        .val()
+        .toLowerCase();
+      $("#jumbo h2 p").each(function() {
         var lineStr = $(this)
           .text()
           .toLowerCase();

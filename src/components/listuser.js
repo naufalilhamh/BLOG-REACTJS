@@ -17,17 +17,19 @@ function App() {
     let no = 1;
     return data.data.map(user => {
       return (
-        <tr key={user.id}>
+        <tr key={user.id_user}>
           <td>{no++}</td>
           <td>{user.name}</td>
           <td>{user.username}</td>
           <td>{user.email}</td>
+          <td>{user.admin}</td>
+          <td>{user.status}</td>
           <td>
             {(() => {
-              if (user.id == id_user) {
+              if (user.admin == "yes") {
                 return (
                   <>
-                    <Link to={"/updaterole/" + user.id}>
+                    <Link to={"/updatestatususer/" + user.id_user}>
                       <button
                         type="button"
                         className="btn btn-danger btn-sm mt-1"
@@ -35,32 +37,37 @@ function App() {
                         disabled
                       >
                         <i className="fa fa-key"> </i>
-                        Edit Roles Locked
+                        Edit Status Locked
                       </button>
                     </Link>
                   </>
                 );
-              } else {
+              } else if (user.status == "nonaktif") {
                 return (
                   <>
-                    <Link to={"/updaterole/" + user.id}>
-                      <button
-                        type="button"
-                        className="btn btn-secondary btn-sm mt-1"
-                        width="10px"
-                      >
-                        <i className="fa fa-gear"> </i>
-                        Edit Roles
-                      </button>
-                    </Link>
-                    <Link to={"/detailpinjam/" + user.id}>
+                    <Link to={"/updatestatususer/" + user.id_user}>
                       <button
                         type="button"
                         className="btn btn-primary btn-sm mt-1"
                         width="10px"
                       >
-                        <i className="fa fa-eye"> </i>
-                        Lihat Peminjaman
+                        <i className="fa fa-check"> </i>
+                        Aktifkan User
+                      </button>
+                    </Link>
+                  </>
+                );
+              } else if (user.status == "aktif") {
+                return (
+                  <>
+                    <Link to={"/updatestatususer/" + user.id_user}>
+                      <button
+                        type="button"
+                        className="btn btn-warning btn-sm mt-1"
+                        width="10px"
+                      >
+                        <i className="fa fa-times"> </i>
+                        NonAktifkan User
                       </button>
                     </Link>
                   </>
@@ -83,6 +90,8 @@ function App() {
             <th>Nama</th>
             <th>Username</th>
             <th>Email</th>
+            <th>Admin</th>
+            <th>Status</th>
             <th>Aksi</th>
           </tr>
         </thead>

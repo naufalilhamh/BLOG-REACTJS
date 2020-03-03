@@ -19,9 +19,10 @@ export default function App() {
         username: data.username,
         email: data.email,
         password: data.password,
-        roles: ["user"]
+        admin: "no",
+        status: "nonaktif"
       })
-      .then(alert("Register successful!"));
+      .then(alert("Register successful, Tunggu Approve Admin!"));
     // document.getElementById("registerbookform").reset();
     window.location.replace("/");
   };

@@ -14,12 +14,12 @@ const Navigation = () => {
   const toggle = () => setIsOpen(!isOpen);
 
   const token = sessionStorage.getItem("Token");
-  const role = sessionStorage.getItem("Role");
+  const admin = sessionStorage.getItem("Admin");
 
   if (!token) {
     return (
       <Navbar color="light" light expand="md">
-        <NavbarBrand href={"/"}>Perpustakaan</NavbarBrand>
+        <NavbarBrand href={"/"}>BLOG</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
@@ -32,16 +32,16 @@ const Navigation = () => {
         </Collapse>
       </Navbar>
     );
-  } else if (token && role === "ADMIN") {
+  } else if (token && admin === "yes") {
     return (
       <Navbar color="light" light expand="md">
-        <NavbarBrand href={"/"}>Perpustakaan</NavbarBrand>
+        <NavbarBrand href={"/"}>BLOG</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink to="/daftarbuku" tag={RRNavLink}>
-                List Buku
+              <NavLink to="/listartikel" tag={RRNavLink}>
+                List Artikel
               </NavLink>
             </NavItem>
             <NavItem>
@@ -58,21 +58,16 @@ const Navigation = () => {
         </Collapse>
       </Navbar>
     );
-  } else if (token && role === "USER") {
+  } else if (token && admin === "no") {
     return (
-      <Navbar color="light" light expand="md">
-        <NavbarBrand href={"/"}>Perpustakaan</NavbarBrand>
+      <Navbar color="light" light expand="sm">
+        <NavbarBrand href={"/"}>BLOG</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink to="/daftarbuku" tag={RRNavLink}>
-                Pinjam Buku
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink to="/listpinjamid" tag={RRNavLink}>
-                Daftar Pinjaman Buku
+              <NavLink to="/listartikelid" tag={RRNavLink}>
+                Daftar Artikel
               </NavLink>
             </NavItem>
             <NavItem>

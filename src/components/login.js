@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+// import "./css/login.css";
 const TambahBuku = () => {
   const [form, setValues] = useState({
     username: "",
@@ -21,25 +21,22 @@ const TambahBuku = () => {
         })
         .then(res => {
           const token = res.data.accessToken;
-          const role = res.data.Role;
+          const admin = res.data.admin;
           const id_user = res.data.id_user;
           // console.log(token);
           sessionStorage.setItem("Token", token);
-          sessionStorage.setItem("Role", role);
+          sessionStorage.setItem("Admin", admin);
           sessionStorage.setItem("Id", id_user);
-          if (res.status === 200) {
-            console.log(res);
-            alert("Login Berhasil");
-            window.location.replace("/");
-          } else {
-            throw new Error("Username & Password Salah!");
-          }
+
+          console.log(res);
+          alert("Login Berhasil");
+          window.location.replace("/");
         });
       //
     } catch (err) {
       console.log(err);
-      alert("Username & Password Salah, Ulangi");
-      window.location.reload();
+      alert(err.response.data.reason);
+      // window.location.reload();
     }
   };
   const updateField = e => {

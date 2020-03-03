@@ -6,40 +6,49 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./components/home";
 import Main from "./layouts/main";
-import DaftarBuku from "./components/axios";
+import ListArtikel from "./components/listartikel";
 import TambahBuku from "./components/tambahbuku";
+import TambahArtikel from "./components/tambahartikel";
 import Notfound from "./components/notfound";
 import Updatebuku from "./components/ubahbuku";
 import RegisterUser from "./components/registeruser";
 import Logout from "./components/logout";
 import Login from "./components/login";
 import ListUser from "./components/listuser";
+import UpdateStatusUser from "./components/ubahstatususer";
 import UpdateRole from "./components/updaterole";
 import PinjamBuku from "./components/pinjambuku";
 import ListPinjamPerID from "./components/listpinjam";
 import DetailPinjam from "./components/detailpinjam";
+import ReviewArtikel from "./components/reviewartikel";
+import HomeGuess from "./components/homegues";
+import ViewArtikel from "./components/viewartikel";
 // import Profile from "./components/profile";
 // import About from "./components/about";
-// import Validasi from "./components/challenge-validasi";
+// import Validasi from "./components/challenge-validasi";s
 // import Form from "./validasi/FormHook";
 // import MultiHandling from "./components/multihandling";
 // import Handling from "./components/handling";
-const role = sessionStorage.getItem("Role");
-
+const admin = sessionStorage.getItem("Admin");
 const routing = (
   <Router>
     <Switch>
       <Main>
         {(() => {
-          if (role === "ADMIN") {
+          if (admin === "yes") {
             return (
               <>
                 <Switch>
                   <Route exact path="/" component={Home} />
-                  <Route path="/daftarbuku" component={DaftarBuku} />
+                  <Route path="/listartikel" component={ListArtikel} />
+                  <Route path="/reviewartikel/:id" component={ReviewArtikel} />
                   <Route path="/listuser" component={ListUser} />
+                  <Route
+                    path="/updatestatususer/:id"
+                    component={UpdateStatusUser}
+                  />
                   <Route path="/detailpinjam/:id" component={DetailPinjam} />
-                  <Route path="/tambahbuku" component={TambahBuku} />
+                  <Route path="/tambahartikel" component={TambahBuku} />
                   <Route path="/updatebuku/:id" component={Updatebuku} />
                   <Route path="/logout" component={Logout} />
                   <Route path="/updaterole/:id" component={UpdateRole} />
@@ -47,12 +56,15 @@ const routing = (
                 </Switch>
               </>
             );
-          } else if (role === "USER") {
+          } else if (admin === "no") {
             return (
               <>
                 <Switch>
                   <Route exact path="/" component={Home} />
-                  <Route path="/daftarbuku" component={DaftarBuku} />
+                  <Route path="/tambahartikel" component={TambahArtikel} />
+                  <Route path="/viewartikel/:id" component={ViewArtikel} />
+
+                  <Route path="/listartikelid" component={ListArtikel} />
                   <Route path="/listpinjamid" component={ListPinjamPerID} />
                   <Route path="/pinjambuku/:id_buku" component={PinjamBuku} />
                   <Route path="/logout" component={Logout} />
@@ -64,8 +76,10 @@ const routing = (
             return (
               <>
                 <Switch>
-                  <Route exact path="/" component={Home} />
+                  <Route exact path="/" component={HomeGuess} />
                   <Route path="/login" component={Login} />
+                  <Route path="/viewartikel/:id" component={ViewArtikel} />
+
                   <Route path="/registeruser" component={RegisterUser} />
                   <Route component={Notfound} />
                 </Switch>
