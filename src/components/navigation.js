@@ -40,8 +40,19 @@ const Navigation = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
+              <NavLink to="/allartikel" tag={RRNavLink}>
+                Semua Artikel
+              </NavLink>
+            </NavItem>
+            <NavItem>
               <NavLink to="/listartikel" tag={RRNavLink}>
-                List Artikel
+                Cek Artikel
+              </NavLink>
+            </NavItem>
+
+            <NavItem>
+              <NavLink to="/listkomentar" tag={RRNavLink}>
+                Cek Komentar
               </NavLink>
             </NavItem>
             <NavItem>
@@ -49,6 +60,7 @@ const Navigation = () => {
                 List User
               </NavLink>
             </NavItem>
+
             <NavItem>
               <NavLink to="/logout" tag={RRNavLink}>
                 Logout
@@ -66,8 +78,13 @@ const Navigation = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
+              <NavLink to="/allartikel" tag={RRNavLink}>
+                Read Artikel
+              </NavLink>
+            </NavItem>
+            <NavItem>
               <NavLink to="/listartikelid" tag={RRNavLink}>
-                Daftar Artikel
+                My Artikel
               </NavLink>
             </NavItem>
             <NavItem>

@@ -21,14 +21,6 @@ function App(props) {
     axios.delete(`http://localhost:6767/artikel/${id}`).then(alert("Terhapus"));
     window.location.reload(false);
   }
-  function pinjambuku(id_buku) {
-    const id_user = sessionStorage.getItem("Id");
-    axios
-      .post("http://localhost:6767/artikel/" + id_buku + "/" + id_user)
-      .then(alert("Peminjaman Berhasil Ditambahkan"));
-    window.location.replace("/listpinjamid");
-  }
-  // let tanggalformat = moment(.format("YYYY-MM-DD"));
 
   const renderTable = () => {
     let no = 1;
@@ -41,7 +33,21 @@ function App(props) {
           <td>{artikel.isi}</td>
           <td>{artikel.user.name}</td>
           <td>{moment(artikel.createdAt).format("DD - MMMM - YYYY")}</td>
-          <td>{artikel.status}</td>
+          <td>
+            {(() => {
+              if (artikel.status === "hide") {
+                return (
+                  <span class="badge badge-pill badge-warning">
+                    Tidak Tampil
+                  </span>
+                );
+              } else {
+                return (
+                  <span class="badge badge-pill badge-success">Tampil</span>
+                );
+              }
+            })()}
+          </td>
           <td>
             {(() => {
               if (admin === "yes") {
@@ -91,7 +97,18 @@ function App(props) {
   };
   return (
     <div>
-      <h1 id="title">Daftar Artikel </h1>
+      {(() => {
+        if (sessionStorage.getItem("Admin") === "no") {
+          return <h4 id="title">Daftar Artikel Anda </h4>;
+        } else {
+          return (
+            <>
+              <h4 id="title">Daftar Artikel </h4>
+            </>
+          );
+        }
+      })()}
+
       <div className="col-md-2">
         {(() => {
           if (sessionStorage.getItem("Admin") === "no") {

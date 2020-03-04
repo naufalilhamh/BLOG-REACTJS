@@ -100,22 +100,6 @@
 </html>
 <script>
   $(document).ready(function() {
-    var text_max = 10;
-    $("#textarea_feedback").html(text_max + " Sisa Huruf/Char");
-
-    $("#textarea").keyup(function() {
-      var text_length = $("#textarea").val().length;
-      var text_remaining = text_max - text_length;
-
-      $("#textarea_feedback").html(text_remaining + " Sisa Huruf/Char");
-    });
-    if (text_length >= text_max) {
-      $("#btnsubmit").addClass("disabled");
-    }
-  });
-</script>
-<script>
-  $(document).ready(function() {
     $(".search").on("keyup", function() {
       var searchTerm = $(this)
         .val()

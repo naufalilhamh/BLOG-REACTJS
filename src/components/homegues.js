@@ -35,7 +35,7 @@ function App(props) {
         <div className="jumbotron">
           <h2>{artikel.judul}</h2>
           <h9>
-            By : {artikel.user.name}, On :{" "}
+            Dari : {artikel.user.name}, Pada :{" "}
             {moment(artikel.createdAt).format(" DD / MMMM / YYYY")}
           </h9>
           <hr />

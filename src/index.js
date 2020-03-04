@@ -15,6 +15,7 @@ import RegisterUser from "./components/registeruser";
 import Logout from "./components/logout";
 import Login from "./components/login";
 import ListUser from "./components/listuser";
+import ListKomentar from "./components/listkomentar";
 import UpdateStatusUser from "./components/ubahstatususer";
 import UpdateRole from "./components/updaterole";
 import PinjamBuku from "./components/pinjambuku";
@@ -23,6 +24,8 @@ import DetailPinjam from "./components/detailpinjam";
 import ReviewArtikel from "./components/reviewartikel";
 import HomeGuess from "./components/homegues";
 import ViewArtikel from "./components/viewartikel";
+import TambahKomen from "./components/tambahkomen";
+import SemuaArtikel from "./components/allartikel";
 // import Profile from "./components/profile";
 // import About from "./components/about";
 // import Validasi from "./components/challenge-validasi";s
@@ -41,12 +44,17 @@ const routing = (
                 <Switch>
                   <Route exact path="/" component={Home} />
                   <Route path="/listartikel" component={ListArtikel} />
+                  <Route path="/allartikel" component={SemuaArtikel} />
+                  <Route path="/viewartikel/:id" component={ViewArtikel} />
+
+                  <Route path="/listkomentar" component={ListKomentar} />
                   <Route path="/reviewartikel/:id" component={ReviewArtikel} />
                   <Route path="/listuser" component={ListUser} />
                   <Route
                     path="/updatestatususer/:id"
                     component={UpdateStatusUser}
                   />
+                  <Route path="/tambahkomen/:id" component={TambahKomen} />
                   <Route path="/detailpinjam/:id" component={DetailPinjam} />
                   <Route path="/tambahartikel" component={TambahBuku} />
                   <Route path="/updatebuku/:id" component={Updatebuku} />
@@ -62,9 +70,10 @@ const routing = (
                 <Switch>
                   <Route exact path="/" component={Home} />
                   <Route path="/tambahartikel" component={TambahArtikel} />
+                  <Route path="/tambahkomen/:id" component={TambahKomen} />
                   <Route path="/viewartikel/:id" component={ViewArtikel} />
-
                   <Route path="/listartikelid" component={ListArtikel} />
+                  <Route path="/allartikel" component={HomeGuess} />
                   <Route path="/listpinjamid" component={ListPinjamPerID} />
                   <Route path="/pinjambuku/:id_buku" component={PinjamBuku} />
                   <Route path="/logout" component={Logout} />
@@ -79,7 +88,6 @@ const routing = (
                   <Route exact path="/" component={HomeGuess} />
                   <Route path="/login" component={Login} />
                   <Route path="/viewartikel/:id" component={ViewArtikel} />
-
                   <Route path="/registeruser" component={RegisterUser} />
                   <Route component={Notfound} />
                 </Switch>

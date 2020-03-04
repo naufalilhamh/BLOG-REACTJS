@@ -3,15 +3,27 @@ import Logo from "./buku.jpeg";
 import { Jumbotron } from "reactstrap";
 
 const Home = () => {
+  const admin = sessionStorage.getItem("Admin");
+
   return (
     <Jumbotron>
-      <h2>
-        Hello, Selamat Datang!
-        <br />
-      </h2>
-      <p className="lead">
-        <img src={Logo} width="1200px" height="400px" />
-      </p>
+      {(() => {
+        if (admin === "yes") {
+          return (
+            <h2>
+              Hello, Selamat Datang! Admin <hr />
+            </h2>
+          );
+        } else if (admin === "no") {
+          return (
+            <h2>
+              Hello, Selamat Datang! User
+              <hr />
+            </h2>
+          );
+        }
+      })()}
+
       {/* <div className="p-3 my-2 rounded">
         <Toast>
           <ToastHeader>Ingat !</ToastHeader>

@@ -81,7 +81,7 @@ function App() {
   };
   return (
     <div>
-      <h1 id="title">Daftar User</h1>
+      <h4 id="title">Daftar User</h4>
       {/* <input type="text" class="search form-control" placeholder="Pencarian" /> */}
       <table id="tabelbor" className="table table-striped table-bordered">
         <thead>
