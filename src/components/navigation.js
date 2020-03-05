@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { NavLink as RRNavLink } from "react-router-dom";
+import Logo from "./logbol.png";
+
 import {
   Collapse,
   Navbar,
@@ -19,7 +21,9 @@ const Navigation = () => {
   if (!token) {
     return (
       <Navbar color="light" light expand="md">
-        <NavbarBrand href={"/"}>BLOG</NavbarBrand>
+        <NavbarBrand href={"/"}>
+          <img src={Logo} alt="..." width="50px" height="50px" /> Sport
+        </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
@@ -41,18 +45,12 @@ const Navigation = () => {
           <Nav className="mr-auto" navbar>
             <NavItem>
               <NavLink to="/allartikel" tag={RRNavLink}>
-                Semua Artikel
+                List Artikel
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink to="/listartikel" tag={RRNavLink}>
-                Cek Artikel
-              </NavLink>
-            </NavItem>
-
             <NavItem>
               <NavLink to="/listkomentar" tag={RRNavLink}>
-                Cek Komentar
+                List Komentar
               </NavLink>
             </NavItem>
             <NavItem>

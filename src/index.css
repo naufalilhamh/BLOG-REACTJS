@@ -5,8 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: khaki;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -16,6 +16,15 @@ code {
   max-width: 300px;
   margin: auto;
   text-align: center;
+}
+
+.cardartikel {
+  box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  background-color: rgb(197, 206, 200);
+  position: relative;
 }
 .cardregis {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);

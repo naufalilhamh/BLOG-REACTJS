@@ -6,9 +6,10 @@ const Main = props => {
   return (
     <>
       <Navigation />
-      <Container fluid={true} className="mt-2">
+      <Container fluid={true} className="mt-1">
         <Col>{props.children}</Col>
       </Container>
+      <Footer />
     </>
   );
 };

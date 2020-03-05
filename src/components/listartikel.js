@@ -16,6 +16,7 @@ function App(props) {
       axios.get(urladmin).then(json => setData(json.data));
     }
   }, []);
+  console.log(data.data);
 
   function onDelete(id) {
     axios.delete(`http://localhost:6767/artikel/${id}`).then(alert("Terhapus"));

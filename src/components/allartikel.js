@@ -16,6 +16,12 @@ function App(props) {
       .then(alert("Artikel Berhasil Disembunyikan"));
     window.location.reload(false);
   }
+  function onTampil(id) {
+    axios
+      .put(`http://localhost:6767/artikeltampil/${id}`)
+      .then(alert("Artikel Berhasil Ditampilkan"));
+    window.location.reload(false);
+  }
 
   function onDelete(id) {
     axios
@@ -39,46 +45,77 @@ function App(props) {
             {(() => {
               if (artikel.status === "hide") {
                 return (
-                  <span class="badge badge-pill badge-warning">
+                  <span className="badge badge-pill badge-warning">
                     Tidak Tampil
                   </span>
                 );
               } else {
                 return (
-                  <span class="badge badge-pill badge-success">Tampil</span>
+                  <span className="badge badge-pill badge-success">Tampil</span>
                 );
               }
             })()}
           </td>
           <td>
-            <>
-              <Link to={"/viewartikel/" + artikel.id_artikel}>
-                <button
-                  type="button"
-                  className="btn btn-success btn-sm mt-1"
-                  width="10px"
-                >
-                  <i className="fa fa-eye"> </i>
-                  Lihat Artikel
-                </button>
-              </Link>
-              <button
-                type="button"
-                className="btn btn-warning  btn-sm mt-1"
-                onClick={() => onSembunyi(artikel.id_artikel)}
-              >
-                <i className="fa fa-window-close"></i>
-                Sembunyikan
-              </button>
-              <button
-                type="button"
-                className="btn btn-danger  btn-sm mt-1"
-                onClick={() => onDelete(artikel.id_artikel)}
-              >
-                <i className="fa fa-trash"></i>
-                Hapus
-              </button>
-            </>
+            {(() => {
+              if (artikel.status === "hide") {
+                return (
+                  <>
+                    <Link to={"/viewartikel/" + artikel.id_artikel}>
+                      <button
+                        type="button"
+                        className="btn btn-success btn-sm mt-1"
+                        width="10px"
+                      >
+                        <i className="fa fa-eye"> </i> Lihat Artikel
+                      </button>
+                    </Link>
+                    <button
+                      type="button"
+                      className="btn btn-primary  btn-sm mt-1"
+                      onClick={() => onTampil(artikel.id_artikel)}
+                    >
+                      <i className="fa fa-check"></i> Tampilkan Artikel
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-danger  btn-sm mt-1"
+                      onClick={() => onDelete(artikel.id_artikel)}
+                    >
+                      <i className="fa fa-trash"></i> Hapus
+                    </button>
+                  </>
+                );
+              } else {
+                return (
+                  <>
+                    <Link to={"/viewartikel/" + artikel.id_artikel}>
+                      <button
+                        type="button"
+                        className="btn btn-success btn-sm mt-1"
+                        width="10px"
+                      >
+                        <i className="fa fa-eye"> </i> Lihat Artikel
+                      </button>
+                    </Link>
+                    <button
+                      type="button"
+                      className="btn btn-warning  btn-sm mt-1"
+                      onClick={() => onSembunyi(artikel.id_artikel)}
+                    >
+                      <i className="fa fa-window-close"></i> Sembunyikan
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-danger  btn-sm mt-1"
+                      onClick={() => onDelete(artikel.id_artikel)}
+                    >
+                      <i className="fa fa-trash"></i> Hapus
+                    </button>
+                  </>
+                );
+              }
+            })()}
           </td>
         </tr>
       );
