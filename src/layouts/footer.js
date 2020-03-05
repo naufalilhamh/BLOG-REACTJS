@@ -6,7 +6,7 @@ const Footer = props => {
     <>
       <footer className="py-4 bg-light text-black-10 ">
         <div className="container text-center ">
-          <strong>Copyright &copy; Your Website</strong>
+          <strong>Copyright &copy; My Sport</strong>
         </div>
       </footer>
     </>

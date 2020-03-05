@@ -22,8 +22,14 @@ function App(props) {
   }
   function onTampilkan(id) {
     axios
-      .put(`http://localhost:6767/komentar/${id}`)
+      .put(`http://localhost:6767/komentartampil/${id}`)
       .then(alert("Komentar Sudah Di Tampilkan"));
+    window.location.reload(false);
+  }
+  function onSembunyikan(id) {
+    axios
+      .put(`http://localhost:6767/komentarsembunyi/${id}`)
+      .then(alert("Komentar Sudah Di Sembunyikan"));
     window.location.reload(false);
   }
 
@@ -53,15 +59,33 @@ function App(props) {
 
           <td>
             <>
-              <button
-                type="button"
-                className="btn btn-primary btn-sm mt-1"
-                width="10px"
-                onClick={() => onTampilkan(komentar.id_komentar)}
-              >
-                <i className="fa fa-check"> </i>
-                Tampilkan
-              </button>
+              {(() => {
+                if (komentar.status === "hide") {
+                  return (
+                    <button
+                      type="button"
+                      className="btn btn-primary btn-sm mt-1"
+                      width="10px"
+                      onClick={() => onTampilkan(komentar.id_komentar)}
+                    >
+                      <i className="fa fa-check"> </i>
+                      Tampilkan
+                    </button>
+                  );
+                } else {
+                  return (
+                    <button
+                      type="button"
+                      className="btn btn-warning btn-sm mt-1"
+                      width="10px"
+                      onClick={() => onSembunyikan(komentar.id_komentar)}
+                    >
+                      <i className="fa fa-square-cross"> </i>
+                      Sembunyikan
+                    </button>
+                  );
+                }
+              })()}
 
               <button
                 type="button"

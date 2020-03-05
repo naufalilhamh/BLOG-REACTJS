@@ -65,15 +65,24 @@ export default class ViewArtikel extends Component {
         <div className="jumbotron pt-5 pb-5">
           <img src={Logo} alt="..." className="rounded mb-3 mt-0" />
           <h2>{this.state.judul}</h2>
-          <h6>
+          <h5>
             Pada : {moment(this.state.createdAt).format(" DD / MMMM / YYYY")}
-            {this.state.id_user}
             {this.state.name}
-          </h6>
+          </h5>
           <hr />
-          <p max="10">{this.state.isi}</p>
+          <p align="justify">{this.state.isi}</p>
         </div>
         <h2 class="page-header">Komentar</h2>
+
+        {(() => {
+          if (this.state.komentars.length === 0) {
+            return (
+              <div className="col-md-5">
+                <h4>Tidak ada komentar</h4>
+              </div>
+            );
+          }
+        })()}
         {(() => {
           if (sessionStorage.getItem("Token")) {
             return (
