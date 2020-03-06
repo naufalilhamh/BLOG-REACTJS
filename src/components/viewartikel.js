@@ -10,24 +10,35 @@ export default class ViewArtikel extends Component {
     super(props);
 
     this.state = {
-      id_artikel: "",
-      judul: "",
-      isi: "",
-      status: "",
-      id_user: "",
-      createdAt: "",
-      komentars: [
-        {
+      artikel: {
+        id_artikel: "",
+        judul: "",
+        isi: "",
+        status: "",
+        id_user: "",
+        createdAt: "",
+        user: {
           id_user: "",
-          isi_komentar: "",
-          status: "",
-          user: {
+          name: ""
+        },
+        komentars: [
+          {
             id_user: "",
-            name: ""
+            isi_komentar: "",
+            status: "",
+            user: {
+              id_user: "",
+              name: ""
+            }
           }
-        }
-      ]
+        ]
+      },
+      form: {
+        isi_komentar: ""
+      }
     };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
     this.getUser();
@@ -38,15 +49,18 @@ export default class ViewArtikel extends Component {
     axios.get("http://localhost:6767/artikelkomen/" + id).then(response => {
       this.setState(
         {
-          judul: response.data.data.judul,
-          isi: response.data.data.isi,
-          komentars: response.data.data.komentars,
-          createdAt: response.data.data.createdAt,
-          id_user: response.data.data.id_user,
-          name: response.data.data.komentars.name
+          artikel: {
+            judul: response.data.data.judul,
+            isi: response.data.data.isi,
+            user: response.data.data.user,
+            komentars: response.data.data.komentars,
+            createdAt: response.data.data.createdAt,
+            id_user: response.data.data.id_user,
+            name: response.data.data.komentars.name
+          }
         },
         () => {
-          console.log(this.state.komentars.length);
+          console.log(response.data.data.user.name);
         }
       );
     });
@@ -58,61 +72,108 @@ export default class ViewArtikel extends Component {
       .then(alert("Komentar terhapus!"));
     window.location.reload(false);
   }
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    this.setState({
+      form: {
+        [name]: value
+      }
+    });
+  }
+  handleSubmit(event) {
+    axios
+      .post(
+        "http://localhost:6767/komentar/" +
+          this.props.match.params.id +
+          "/" +
+          sessionStorage.getItem("Id"),
+        {
+          isi_komentar: this.state.form.isi_komentar
+        }
+      )
+      .then(alert("Komentar Berhasil Ditambahkan, Menunggu Persetujuan Admin"));
+    window.location.reload(false);
+
+    event.preventDefault();
+  }
 
   render() {
     return (
       <>
         <div className="jumbotron pt-5 pb-5">
           <img src={Logo} alt="..." className="rounded mb-3 mt-0" />
-          <h2>{this.state.judul}</h2>
+          <h2>{this.state.artikel.judul}</h2>
           <h5>
-            Pada : {moment(this.state.createdAt).format(" DD / MMMM / YYYY")}
-            {this.state.name}
+            Dari : {this.state.artikel.user.name} <br />
+            Pada :{" "}
+            {moment(this.state.artikel.createdAt).format(" DD / MMMM / YYYY")}
           </h5>
           <hr />
-          <p align="justify">{this.state.isi}</p>
+          <p align="justify">{this.state.artikel.isi}</p>
         </div>
         <h2 class="page-header">Komentar</h2>
-
-        {(() => {
-          if (this.state.komentars.length === 0) {
-            return (
-              <div className="col-md-5">
-                <h4>Tidak ada komentar</h4>
-              </div>
-            );
-          }
-        })()}
-        {(() => {
-          if (sessionStorage.getItem("Token")) {
-            return (
-              <div className="col-md-2">
-                <Link to={"/tambahkomen/" + this.props.match.params.id}>
-                  <button
-                    type="button"
-                    className="btn btn-primary btn-sm mt-1"
-                    width="10px"
-                  >
-                    <i className="fa fa-plus"> </i>
-                    Tambah Komentar
-                  </button>
-                </Link>
-              </div>
-            );
-          } else if (!sessionStorage.getItem("Token")) {
-          }
-        })()}
+        <link
+          href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+          rel="stylesheet"
+          id="bootstrap-css"
+        />
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <link
+          rel="stylesheet"
+          href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css"
+        />
         <div class="container">
-          {" "}
           <div class="row">
             <div class="col-md-8">
-              {" "}
+              {(() => {
+                if (sessionStorage.getItem("Token")) {
+                  return (
+                    <>
+                      <div class="widget-area no-padding blank mb-5">
+                        <div class="status-upload">
+                          <form onSubmit={this.handleSubmit}>
+                            <textarea
+                              type="text"
+                              name="isi_komentar"
+                              placeholder="Silahkan Sisipkan Komentar Anda Disini!"
+                              value={this.state.form.isi_komentar}
+                              onChange={this.handleInputChange}
+                            ></textarea>
+                            <div className="col-md-3 mb-3">
+                              <button
+                                type="submit"
+                                class="btn btn-success green"
+                              >
+                                <i class="fa fa-share"></i> Share
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </>
+                  );
+                } else if (!sessionStorage.getItem("Token")) {
+                }
+              })()}
+              {(() => {
+                if (this.state.artikel.komentars.length === 0) {
+                  return (
+                    <div className="col-md-5">
+                      <h4>Tidak ada komentar</h4>
+                    </div>
+                  );
+                }
+              })()}
+
               <section class="comment-list">
-                {this.state.komentars.map(komentars => {
+                {this.state.artikel.komentars.map(komentars => {
                   return (
                     <>
                       <article class="row">
-                        <div class="col-md-2 col-sm-2 hidden-xs">
+                        <div class="col-md-2 col-sm-2 hidden-xs ">
                           <figure class="thumbnail">
                             <img
                               class="img-responsive"

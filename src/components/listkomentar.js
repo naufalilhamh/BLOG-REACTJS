@@ -80,7 +80,7 @@ function App(props) {
                       width="10px"
                       onClick={() => onSembunyikan(komentar.id_komentar)}
                     >
-                      <i className="fa fa-square-cross"> </i>
+                      <i className="fa fa-times"> </i>
                       Sembunyikan
                     </button>
                   );

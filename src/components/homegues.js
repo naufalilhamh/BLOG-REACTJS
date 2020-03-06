@@ -23,8 +23,8 @@ function App(props) {
       }
     ]
   });
-
   useEffect(() => {
+    document.title = `Halaman Guess`;
     axios.get(url).then(json => setData(json.data));
   }, []);
   console.log(data);
